@@ -1,0 +1,34 @@
+<div class="is-centered">
+  <div class="usrsFrm">
+    <div class="usrsFrm-title">Users list</div>
+
+    <div class="usrsFrm-search">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="searchUsers()" placeholder="Please enter username"/>
+      <span class="usrsFrm-search-clear" [hidden]="!searchTerm" (click)="cleanSearch()">&times;</span>
+    </div>
+
+    <div class="usrsFrm-list" #scrollbarRef>
+      <div *ngIf="isLoading" class="usrsFrm-loader is-centered">
+        <img src="../assets/img/loader.svg" alt="loader"/>
+      </div>
+
+      <div class="usrsFrm-user" *ngFor="let user of users?.result">
+        <img class="usrsFrm-user-avatar" src="{{ user.avatarUrl }}" alt="User avatar"/>
+        <div class="usrsFrm-user-name">{{ user.name }}</div>
+      </div>
+
+      <div class="usrsFrm-btns">
+        <span class="usrsFrm-btn"
+              [hidden]="!users?.previousPageUrl"
+              (click)="searchUsers(users?.previousPageUrl)">Prev</span>
+        <span class="usrsFrm-btn"
+              [hidden]="!users?.nextPageUrl"
+              (click)="searchUsers(users?.nextPageUrl)">Next</span>
+      </div>
+    </div>
+
+    <div [hidden]="!message" class="usrsFrm-message">{{ message }}</div>
+    <div [hidden]="!error" class="usrsFrm-error">{{ error }}</div>
+
+  </div>
+</div>
